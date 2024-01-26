@@ -1,18 +1,23 @@
 [versions]
 agp = '8.2.2'
 kotlin = '1.9.22'
+ksp = '1.9.22-1.0.17'
 hilt = '2.50'
 androidx-core = '1.12.0'
 jdk-desugar = '2.0.4'
+room = '2.6.1'
 
 [libraries]
 androidx-core = { group = 'androidx.core', name = 'core-ktx', version.ref = 'androidx-core' }
 dagger-hilt-android = { group = 'com.google.dagger', name = 'hilt-android', version.ref = 'hilt' }
 dagger-hilt-android-compiler = { group = 'com.google.dagger', name = 'hilt-android-compiler', version.ref = 'hilt' }
 jdk-desugar = { group = 'com.android.tools', name = 'desugar_jdk_libs', version.ref = 'jdk-desugar' }
+room = { group = 'androidx.room', name = 'room-ktx', version.ref = 'room' }
+room-compiler = { group = 'androidx.room', name = 'room-compiler', version.ref = 'room' }
 
 [plugins]
 android-application = { id = 'com.android.application', version.ref = 'agp' }
 android-library = { id = 'com.android.library', version.ref = 'agp' }
 kotlin = { id = 'org.jetbrains.kotlin.android', version.ref = 'kotlin' }
+ksp = { id = 'com.google.devtools.ksp', version.ref = 'ksp' }
 dagger-hilt = { id = 'com.google.dagger.hilt.android', version.ref = 'hilt' }
