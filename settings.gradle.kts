@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "GigaPass"
 include(":app")
 include(":data:password")
+include(":data:crypto")

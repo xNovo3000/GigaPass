@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    buildToolsVersion = "34.0.0"
     namespace = "com.github.xnovo3000.gigapass"
     compileSdk = 34
     defaultConfig {

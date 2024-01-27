@@ -2,18 +2,14 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin)
     kotlin("kapt")
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.github.xnovo3000.gigapass.data.password"
+    namespace = "com.github.xnovo3000.gigapass.data.crypto"
     compileSdk = 34
     defaultConfig {
         minSdk = 26
         consumerProguardFiles("consumer-rules.pro")
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
     buildTypes {
         release {
@@ -33,12 +29,11 @@ android {
 dependencies {
     // AndroidX
     implementation(libs.androidx.core)
+    // Biometric
+    implementation("androidx.biometric:biometric:${libs.versions.biometric}")
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
-    // Room
-    implementation("androidx.room:room-ktx:${libs.versions.room}")
-    ksp("androidx.room:room-compiler:${libs.versions.room}")
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
 }
