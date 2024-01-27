@@ -10,6 +10,7 @@ android {
     defaultConfig {
         minSdk = 26
         consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -21,6 +22,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -29,13 +31,16 @@ android {
 dependencies {
     // AndroidX
     implementation(libs.androidx.core)
-    // Biometric
-    implementation(libs.biometric)
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
+    // Test - Integration
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.ext.truth)
 }
 
 kapt {

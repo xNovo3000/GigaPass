@@ -2,10 +2,14 @@ package com.github.xnovo3000.gigapass.data.crypto
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import android.util.Base64
+import java.nio.ByteBuffer
+import java.nio.charset.Charset
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
+import javax.crypto.spec.IvParameterSpec
 
 internal class CryptoManagerAndroid : CryptoManager {
 
@@ -28,7 +32,14 @@ internal class CryptoManagerAndroid : CryptoManager {
         val cipher = createCipher()
         cipher.init(Cipher.ENCRYPT_MODE, key)
         // Encrypt
-        return cipher.doFinal(value.toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+        val encryptedBytes = cipher.doFinal(value.toByteArray(Charset.defaultCharset()))
+        val byteArray = ByteBuffer.allocate(4 + cipher.iv.size + 4 + encryptedBytes.size)
+            .putInt(cipher.iv.size)
+            .put(cipher.iv)
+            .putInt(encryptedBytes.size)
+            .put(encryptedBytes)
+            .array()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
     override fun decrypt(value: String): String {
@@ -36,11 +47,19 @@ internal class CryptoManagerAndroid : CryptoManager {
         val keyStore = loadKeyStore()
         // Get master key, or generate one if missing
         val key = keyStore.getKey(KEY_NAME, null) as? SecretKey ?: generateMasterKey()
+        // Extract value
+        val byteBuffer = ByteBuffer.wrap(Base64.decode(value, Base64.DEFAULT))
+        val ivSize = byteBuffer.getInt()
+        val iv = ByteArray(ivSize)
+        byteBuffer.get(iv, 0, ivSize)
+        val encryptedBytesSize = byteBuffer.getInt()
+        val encryptedBytes = ByteArray(encryptedBytesSize)
+        byteBuffer.get(encryptedBytes, 0, encryptedBytesSize)
         // Initialize the cipher
         val cipher = createCipher()
-        cipher.init(Cipher.DECRYPT_MODE, key)
+        cipher.init(Cipher.DECRYPT_MODE, key, IvParameterSpec(iv))
         // Decrypt
-        return cipher.doFinal(value.toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+        return cipher.doFinal(encryptedBytes).toString(Charset.defaultCharset())
     }
 
     private fun loadKeyStore(): KeyStore {
@@ -61,7 +80,7 @@ internal class CryptoManagerAndroid : CryptoManager {
     }
 
     private fun createCipher(): Cipher {
-        return Cipher.getInstance(CIPHER_TRANSFORMATION, CRYPTO_PROVIDER)
+        return Cipher.getInstance(CIPHER_TRANSFORMATION)
     }
 
 }
