@@ -13,6 +13,9 @@ androidx-core = { group = 'androidx.core', name = 'core-ktx', version.ref = 'and
 dagger-hilt-android = { group = 'com.google.dagger', name = 'hilt-android', version.ref = 'hilt' }
 dagger-hilt-android-compiler = { group = 'com.google.dagger', name = 'hilt-android-compiler', version.ref = 'hilt' }
 jdk-desugar = { group = 'com.android.tools', name = 'desugar_jdk_libs', version.ref = 'jdk-desugar' }
+room = { group = 'androidx.room', name = 'room-ktx', version.ref = 'room' }
+room-compiler = { group = 'androidx.room', name = 'room-compiler', version.ref = 'room' }
+biometric = { group = 'androidx.biometric', name = 'biometric-ktx', version.ref = 'biometric' }
 
 [plugins]
 android-application = { id = 'com.android.application', version.ref = 'agp' }

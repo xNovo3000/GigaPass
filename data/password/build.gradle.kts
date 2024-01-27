@@ -37,8 +37,8 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
     // Room
-    implementation("androidx.room:room-ktx:${libs.versions.room}")
-    ksp("androidx.room:room-compiler:${libs.versions.room}")
+    implementation(libs.room)
+    ksp(libs.room.compiler)
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
 }

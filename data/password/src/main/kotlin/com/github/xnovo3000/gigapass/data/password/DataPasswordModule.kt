@@ -12,7 +12,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object PasswordRoomModule {
+object DataPasswordModule {
 
     @Provides
     @ActivityRetainedScoped

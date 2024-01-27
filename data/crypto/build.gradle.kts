@@ -30,7 +30,7 @@ dependencies {
     // AndroidX
     implementation(libs.androidx.core)
     // Biometric
-    implementation("androidx.biometric:biometric:${libs.versions.biometric}")
+    implementation(libs.biometric)
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
