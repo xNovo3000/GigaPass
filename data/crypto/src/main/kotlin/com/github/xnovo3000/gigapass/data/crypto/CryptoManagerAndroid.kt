@@ -48,7 +48,6 @@ internal class CryptoManagerAndroid : CryptoManager {
             val byteArray = ByteBuffer.allocate(4 + cipher.iv.size + encryptedBytes.size)
                 .putInt(cipher.iv.size)
                 .put(cipher.iv)
-                .putInt(encryptedBytes.size)
                 .put(encryptedBytes)
                 .array()
             // Encode to base64
