@@ -23,49 +23,55 @@ internal class CryptoManagerAndroid : CryptoManager {
         private const val KEY_NAME = "MASTER_KEY"
     }
 
+    private val keyStore by lazy {
+        KeyStore.getInstance(CRYPTO_PROVIDER).apply {
+            load(null)
+        }
+    }
+
+    private val secretKey by lazy {
+        keyStore.getKey(KEY_NAME, null) as? SecretKey ?: generateMasterKey()
+    }
+
+    private val cipher by lazy {
+        Cipher.getInstance(CIPHER_TRANSFORMATION)
+    }
+
     override fun encrypt(value: String): String {
-        // Get KeyStore
-        val keyStore = loadKeyStore()
-        // Get master key, or generate one if missing
-        val key = keyStore.getKey(KEY_NAME, null) as? SecretKey ?: generateMasterKey()
-        // Initialize the cipher
-        val cipher = createCipher()
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        // Encrypt
-        val encryptedBytes = cipher.doFinal(value.toByteArray(Charset.defaultCharset()))
-        val byteArray = ByteBuffer.allocate(4 + cipher.iv.size + 4 + encryptedBytes.size)
-            .putInt(cipher.iv.size)
-            .put(cipher.iv)
-            .putInt(encryptedBytes.size)
-            .put(encryptedBytes)
-            .array()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+        // Run the action in a cipher-synchronized mode
+        return synchronized(cipher) {
+            // Initialize cipher for encryption
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+            // Encrypt
+            val encryptedBytes = cipher.doFinal(value.toByteArray(Charset.defaultCharset()))
+            // Push into a byte array
+            val byteArray = ByteBuffer.allocate(4 + cipher.iv.size + encryptedBytes.size)
+                .putInt(cipher.iv.size)
+                .put(cipher.iv)
+                .putInt(encryptedBytes.size)
+                .put(encryptedBytes)
+                .array()
+            // Encode to base64
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
+        }
     }
 
     override fun decrypt(value: String): String {
-        // Get KeyStore
-        val keyStore = loadKeyStore()
-        // Get master key, or generate one if missing
-        val key = keyStore.getKey(KEY_NAME, null) as? SecretKey ?: generateMasterKey()
-        // Extract value
+        // Extract required values
         val byteBuffer = ByteBuffer.wrap(Base64.decode(value, Base64.DEFAULT))
         val ivSize = byteBuffer.getInt()
         val iv = ByteArray(ivSize)
         byteBuffer.get(iv, 0, ivSize)
-        val encryptedBytesSize = byteBuffer.getInt()
+        val encryptedBytesSize = byteBuffer.remaining()
         val encryptedBytes = ByteArray(encryptedBytesSize)
         byteBuffer.get(encryptedBytes, 0, encryptedBytesSize)
-        // Initialize the cipher
-        val cipher = createCipher()
-        cipher.init(Cipher.DECRYPT_MODE, key, IvParameterSpec(iv))
-        // Decrypt
-        return cipher.doFinal(encryptedBytes).toString(Charset.defaultCharset())
-    }
-
-    private fun loadKeyStore(): KeyStore {
-        val keyStore = KeyStore.getInstance(CRYPTO_PROVIDER)
-        keyStore.load(null)
-        return keyStore
+        // Run the action in a cipher-synchronized mode
+        return synchronized(cipher) {
+            // Initialize cipher for decryption
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(iv))
+            // Decrypt
+            cipher.doFinal(encryptedBytes).toString(Charset.defaultCharset())
+        }
     }
 
     private fun generateMasterKey(): SecretKey {
@@ -77,10 +83,6 @@ internal class CryptoManagerAndroid : CryptoManager {
             .build()
         keyGenerator.init(keyParameters)
         return keyGenerator.generateKey()
-    }
-
-    private fun createCipher(): Cipher {
-        return Cipher.getInstance(CIPHER_TRANSFORMATION)
     }
 
 }
