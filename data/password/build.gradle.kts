@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.ksp)
 }
@@ -38,8 +38,8 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
     // Room
-    implementation(libs.room)
-    ksp(libs.room.compiler)
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
 }

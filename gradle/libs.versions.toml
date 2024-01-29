@@ -4,20 +4,20 @@ kotlin = '1.9.22'
 ksp = '1.9.22-1.0.17'
 hilt = '2.50'
 androidx-core = '1.12.0'
+androidx-room = '2.6.1'
 jdk-desugar = '2.0.4'
-room = '2.6.1'
 test-runner = '1.5.2'
 test-rules = '1.5.0'
 test-ext-junit = '1.1.5'
 test-ext-truth = '1.5.0'
 
 [libraries]
-androidx-core = { group = 'androidx.core', name = 'core-ktx', version.ref = 'androidx-core' }
 dagger-hilt-android = { group = 'com.google.dagger', name = 'hilt-android', version.ref = 'hilt' }
 dagger-hilt-android-compiler = { group = 'com.google.dagger', name = 'hilt-android-compiler', version.ref = 'hilt' }
+androidx-core = { group = 'androidx.core', name = 'core-ktx', version.ref = 'androidx-core' }
+androidx-room = { group = 'androidx.room', name = 'room-ktx', version.ref = 'androidx-room' }
+androidx-room-compiler = { group = 'androidx.room', name = 'room-compiler', version.ref = 'androidx-room' }
 jdk-desugar = { group = 'com.android.tools', name = 'desugar_jdk_libs', version.ref = 'jdk-desugar' }
-room = { group = 'androidx.room', name = 'room-ktx', version.ref = 'room' }
-room-compiler = { group = 'androidx.room', name = 'room-compiler', version.ref = 'room' }
 test-runner = { group = 'androidx.test', name = 'runner', version.ref = 'test-runner' }
 test-rules = { group = 'androidx.test', name = 'rules', version.ref = 'test-rules' }
 test-ext-junit = { group = 'androidx.test.ext', name = 'junit', version.ref = 'test-ext-junit' }
@@ -26,6 +26,6 @@ test-ext-truth = { group = 'androidx.test.ext', name = 'truth', version.ref = 't
 [plugins]
 android-application = { id = 'com.android.application', version.ref = 'agp' }
 android-library = { id = 'com.android.library', version.ref = 'agp' }
-kotlin = { id = 'org.jetbrains.kotlin.android', version.ref = 'kotlin' }
+kotlin-android = { id = 'org.jetbrains.kotlin.android', version.ref = 'kotlin' }
 ksp = { id = 'com.google.devtools.ksp', version.ref = 'ksp' }
 dagger-hilt = { id = 'com.google.dagger.hilt.android', version.ref = 'hilt' }
