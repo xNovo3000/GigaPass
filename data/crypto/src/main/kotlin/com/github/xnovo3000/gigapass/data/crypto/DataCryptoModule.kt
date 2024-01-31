@@ -8,7 +8,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object DataCryptoModuleBindings {
+object DataCryptoModule {
 
     @Provides
     @ActivityRetainedScoped
