@@ -39,20 +39,20 @@ internal class CryptoManagerAndroid : CryptoManager {
 
     override fun encrypt(value: String): String {
         // Run the action in a cipher-synchronized mode
-        return synchronized(cipher) {
+        val byteArray = synchronized(cipher) {
             // Initialize cipher for encryption
             cipher.init(Cipher.ENCRYPT_MODE, secretKey)
             // Encrypt
             val encryptedBytes = cipher.doFinal(value.toByteArray(Charset.defaultCharset()))
             // Push into a byte array
-            val byteArray = ByteBuffer.allocate(4 + cipher.iv.size + encryptedBytes.size)
+            ByteBuffer.allocate(4 + cipher.iv.size + encryptedBytes.size)
                 .putInt(cipher.iv.size)
                 .put(cipher.iv)
                 .put(encryptedBytes)
                 .array()
-            // Encode to base64
-            Base64.encodeToString(byteArray, Base64.DEFAULT)
         }
+        // Encode to base64
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
     override fun decrypt(value: String): String {

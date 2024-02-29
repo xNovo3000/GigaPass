@@ -17,5 +17,6 @@ rootProject.name = "GigaPass"
 include(":app")
 include(":data:password")
 include(":data:crypto")
-include(":feature:homescreen")
+include(":feature:home")
 include(":core:ui")
+include(":core:algorithm")

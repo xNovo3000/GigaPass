@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.xnovo3000.gigapass.feature.homescreen"
+    namespace = "com.github.xnovo3000.gigapass.feature.home"
     compileSdk = 34
     defaultConfig {
         minSdk = 26
@@ -20,21 +20,42 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "${libs.versions.jetpack.compose.compiler}"
+    }
 }
 
 dependencies {
     // Project
+    api(project(":core:algorithm"))
     api(project(":core:ui"))
+    api(project(":data:password"))
     // AndroidX
     implementation(libs.androidx.core)
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
+    // Jetpack Compose
+    implementation(platform(libs.jetpack.compose.bom))
+    implementation(libs.jetpack.compose.bom)
+    implementation(libs.jetpack.compose.animation)
+    implementation(libs.jetpack.compose.foundation)
+    implementation(libs.jetpack.compose.runtime)
+    implementation(libs.jetpack.compose.ui)
+    implementation(libs.jetpack.compose.compiler)
+    // Jetpack Compose - Material 3
+    implementation(libs.jetpack.compose.material3)
+    // Jetpack Compose - Navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
 }

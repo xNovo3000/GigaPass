@@ -3,12 +3,14 @@ agp = '8.2.2'
 kotlin = '1.9.22'
 ksp = '1.9.22-1.0.17'
 hilt = '2.50'
+hilt-navigation-compose = '1.2.0'
 androidx-core = '1.12.0'
 androidx-room = '2.6.1'
 jdk-desugar = '2.0.4'
-jetpack-compose = '2024.01.00'
-jetpack-compose-compiler = '1.5.8'
-jetpack-compose-material3 = '1.1.2'
+jetpack-compose = '2024.02.01'
+jetpack-compose-compiler = '1.5.10'
+jetpack-compose-material3 = '1.2.0'
+navigation-compose = '2.7.7'
 test-runner = '1.5.2'
 test-rules = '1.5.0'
 test-ext-junit = '1.1.5'
@@ -20,6 +22,7 @@ dagger-hilt-android-compiler = { group = 'com.google.dagger', name = 'hilt-andro
 androidx-core = { group = 'androidx.core', name = 'core-ktx', version.ref = 'androidx-core' }
 androidx-room = { group = 'androidx.room', name = 'room-ktx', version.ref = 'androidx-room' }
 androidx-room-compiler = { group = 'androidx.room', name = 'room-compiler', version.ref = 'androidx-room' }
+hilt-navigation-compose = { group = 'androidx.hilt', name = 'hilt-navigation-compose', version.ref = 'hilt-navigation-compose' }
 jdk-desugar = { group = 'com.android.tools', name = 'desugar_jdk_libs', version.ref = 'jdk-desugar' }
 jetpack-compose-bom = { group = 'androidx.compose', name = 'compose-bom', version.ref = 'jetpack-compose' }
 jetpack-compose-animation = { group = 'androidx.compose.animation', name = 'animation' }
@@ -28,6 +31,7 @@ jetpack-compose-runtime = { group = 'androidx.compose.runtime', name = 'runtime'
 jetpack-compose-ui = { group = 'androidx.compose.ui', name = 'ui' }
 jetpack-compose-compiler = { group = 'androidx.compose.compiler', name = 'compiler', version.ref = 'jetpack-compose-compiler' }
 jetpack-compose-material3 = { group = 'androidx.compose.material3', name = 'material3', version.ref = 'jetpack-compose-material3' }
+navigation-compose = { group = 'androidx.navigation', name = 'navigation-compose', version.ref = 'navigation-compose' }
 test-runner = { group = 'androidx.test', name = 'runner', version.ref = 'test-runner' }
 test-rules = { group = 'androidx.test', name = 'rules', version.ref = 'test-rules' }
 test-ext-junit = { group = 'androidx.test.ext', name = 'junit', version.ref = 'test-ext-junit' }
