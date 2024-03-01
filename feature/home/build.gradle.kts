@@ -43,6 +43,7 @@ dependencies {
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
+    implementation(libs.dagger.hilt.navigation.compose)  // Compose add-on
     // Jetpack Compose
     implementation(platform(libs.jetpack.compose.bom))
     implementation(libs.jetpack.compose.bom)
@@ -55,7 +56,9 @@ dependencies {
     implementation(libs.jetpack.compose.material3)
     // Jetpack Compose - Navigation
     implementation(libs.navigation.compose)
-    implementation(libs.hilt.navigation.compose)
+    // Jetpack Compose - Preview
+    debugImplementation(libs.jetpack.compose.ui.tooling)
+    implementation(libs.jetpack.compose.ui.tooling.preview)
     // JDK 11 desugaring
     coreLibraryDesugaring(libs.jdk.desugar)
 }
