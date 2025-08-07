@@ -8,18 +8,19 @@ import kotlinx.coroutines.async
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
+import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 import kotlin.io.encoding.Base64
 
-class CryptoManagerAndroid(coroutineScope: CoroutineScope) : CryptoManager {
+internal class CryptoManagerAndroid(coroutineScope: CoroutineScope) : CryptoManager {
 
     companion object {
         private const val TAG = "CryptoManagerAndroid"
         private const val KEYSTORE_PROVIDER = "AndroidKeyStore"
         private const val KEY_ALIAS = "com.github.xnovo3000.gigapass"
         private const val KEY_PURPOSES = KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-        private const val KEY_ALGORITHM = KeyProperties.KEY_ALGORITHM_EC
-        private const val KEY_BLOCK_MODE = KeyProperties.BLOCK_MODE_GCM
+        private const val KEY_ALGORITHM = KeyProperties.KEY_ALGORITHM_AES
+        private const val KEY_BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC
         private const val KEY_PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7
     }
 
@@ -55,7 +56,7 @@ class CryptoManagerAndroid(coroutineScope: CoroutineScope) : CryptoManager {
             return Result.failure<String>(e)
         }
         val encryptedData = try {
-            Base64.Default.decode(value.substringBefore('-', ""))
+            Base64.Default.decode(value.substringAfter('-', ""))
         } catch (e: Exception) {
             return Result.failure<String>(e)
         }
