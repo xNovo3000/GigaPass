@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    // Project
+    api(project(":core:ui"))
     // AndroidX
     implementation(libs.androidx.core)
 }
