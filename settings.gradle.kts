@@ -25,3 +25,4 @@ rootProject.name = "GigaPass"
 include(":app")
 include(":core:crypto")
 include(":core:ui")
+include(":data:keychain")
