@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -43,6 +45,9 @@ dependencies {
     api(project(":data:keychain"))
     // AndroidX
     implementation(libs.androidx.core)
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     // Jetpack Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.animation)
@@ -54,4 +59,6 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     // Jetpack Compose - Material 3 Expressive
     implementation(libs.compose.material3)
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel)
 }
