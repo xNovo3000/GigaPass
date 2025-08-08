@@ -4,7 +4,9 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -46,45 +48,53 @@ internal class CryptoManagerAndroid(coroutineScope: CoroutineScope) : CryptoMana
         }
     }
 
-    override suspend fun decrypt(value: String): Result<String> {
+    override suspend fun decrypt(value: String): Result<String> = withContext(Dispatchers.Default) {
         Log.v(TAG, "Trying to decrypt '$value' using $KEY_ALIAS")
         // The value must contain an IV and an encrypted value both encoded
         // in Base64 and separated using '-' (not a Base64 character)
         val iv = try {
             Base64.Default.decode(value.substringBefore('-', ""))
         } catch (e: Exception) {
-            return Result.failure<String>(e)
+            return@withContext CryptoManagerException.failureResult("Failed to decode IV from Base64 string $value", e)
         }
         val encryptedData = try {
             Base64.Default.decode(value.substringAfter('-', ""))
         } catch (e: Exception) {
-            return Result.failure<String>(e)
+            return@withContext CryptoManagerException.failureResult("Failed to decode EncryptedData from Base64 string $value", e)
         }
         // Await for key being generated or retrieved
         val secretKey = secretKeyDeferred.await()
         // Cipher is not thread-safe, so the operations must be done one at a time
-        val result = synchronized(this) {
-            val cipher = Cipher.getInstance("$KEY_ALGORITHM/$KEY_BLOCK_MODE/$KEY_PADDING")
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(iv))
-            cipher.doFinal(encryptedData)
+        val result = try {
+            synchronized(this) {
+                val cipher = Cipher.getInstance("$KEY_ALGORITHM/$KEY_BLOCK_MODE/$KEY_PADDING")
+                cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(iv))
+                cipher.doFinal(encryptedData)
+            }
+        } catch (e: Exception) {
+            return@withContext CryptoManagerException.failureResult("Failed to decrypt data with Cipher", e)
         }
         // Convert the result into a String
-        return Result.success(result.toString(Charsets.UTF_8))
+        Result.success(result.toString(Charsets.UTF_8))
     }
 
-    override suspend fun encrypt(value: String): String {
+    override suspend fun encrypt(value: String): Result<String> = withContext(Dispatchers.Default) {
         Log.v(TAG, "Encrypting '$value' using $KEY_ALIAS")
         // Await for key being generated or retrieved
         val secretKey = secretKeyDeferred.await()
         // Cipher is not thread-safe, so the operations must be done one at a time
-        val (iv, encryptedData) = synchronized(this) {
-            val cipher = Cipher.getInstance("$KEY_ALGORITHM/$KEY_BLOCK_MODE/$KEY_PADDING")
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-            val encryptedBytes = cipher.doFinal(value.toByteArray())
-            Pair(cipher.iv, encryptedBytes)
+        val (iv, encryptedData) = try {
+            synchronized(this) {
+                val cipher = Cipher.getInstance("$KEY_ALGORITHM/$KEY_BLOCK_MODE/$KEY_PADDING")
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+                val encryptedBytes = cipher.doFinal(value.toByteArray())
+                Pair(cipher.iv, encryptedBytes)
+            }
+        } catch (e: Exception) {
+            return@withContext CryptoManagerException.failureResult("Failed to encrypt data with Cipher", e)
         }
         // Save them in Base64 and return the completed String
-        return "${Base64.Default.encode(iv)}-${Base64.Default.encode(encryptedData)}"
+        Result.success("${Base64.Default.encode(iv)}-${Base64.Default.encode(encryptedData)}")
     }
 
 }

@@ -14,13 +14,19 @@ class EncryptionDecryptionUseCase {
     )
 
     @Test
-    fun encryptAndDecryptSampleStringMustBeOk() {
+    fun encryptAndDecryptSampleStringMustBeOk() = runBlocking {
         val sampleString = "my_test_string_1234"
-        val result = runBlocking {
-            val encryptedValue = cryptoManager.encrypt(sampleString)
-            cryptoManager.decrypt(encryptedValue)
-        }
-        Assert.assertEquals(Result.success(sampleString), result)
+        val encryptedValueResult = cryptoManager.encrypt(sampleString)
+        Assert.assertTrue(encryptedValueResult.isSuccess)
+        val decryptedValueResult = cryptoManager.decrypt(encryptedValueResult.getOrThrow())
+        Assert.assertEquals(Result.success(sampleString), decryptedValueResult)
+    }
+
+    @Test
+    fun tryToDecryptInvalidString() = runBlocking {
+        val invalidString = "akfhSDFasd54=-afajfr234=="
+        val encryptedValueResult = cryptoManager.decrypt(invalidString)
+        Assert.assertTrue(encryptedValueResult.isFailure)
     }
 
 }
