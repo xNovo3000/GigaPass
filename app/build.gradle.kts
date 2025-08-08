@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -28,6 +30,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -45,7 +50,23 @@ dependencies {
     api(project(":core:crypto"))
     // AndroidX
     implementation(libs.androidx.core)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.activity)
+    // Jetpack Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.animation)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.viewmodel.navigation3)
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    // KotlinX
+    implementation(libs.kotlinx.serialization.core)
+    // Navigation3
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
 }
