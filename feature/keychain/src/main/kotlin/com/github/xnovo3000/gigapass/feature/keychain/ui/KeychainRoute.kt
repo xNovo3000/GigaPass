@@ -40,17 +40,71 @@ fun KeychainRoute(viewModel: KeychainViewModel) {
                 bottom = 112.dp + WindowInsets.navigationBars.getBottom(LocalDensity.current).dp,
             )
         ) {
-            item(key = -2) {
+            item(key = -10001) {
                 ComponentTitle()
             }
-            stickyHeader(key = -1) {
+            stickyHeader(key = -10000) {
                 ComponentSearch()
             }
             item {
-                ComponentKeyHeader(header = ComponentKeyData.Header("A"))
+                ComponentKeyHeader(
+                    header = ComponentKeyData.Header(
+                        letter = "A",
+                        isFirst = true
+                    )
+                )
             }
-            items(100) {
-                Text(text = "Test $it")
+            item {
+                ComponentKeyItem(
+                    item = ComponentKeyData.Item(
+                        id = 1,
+                        serviceName = "Amazon",
+                        isFirst = true,
+                        isLast = false
+                    ),
+                    onClick = {}
+                )
+            }
+            item {
+                ComponentKeyItem(
+                    item = ComponentKeyData.Item(
+                        id = 1,
+                        serviceName = "Amazon",
+                        isFirst = false,
+                        isLast = false
+                    ),
+                    onClick = {}
+                )
+            }
+            item {
+                ComponentKeyItem(
+                    item = ComponentKeyData.Item(
+                        id = 1,
+                        serviceName = "Amazon",
+                        isFirst = false,
+                        isLast = true
+                    ),
+                    onClick = {}
+                )
+            }
+            item {
+                ComponentKeyHeader(
+                    header = ComponentKeyData.Header(
+                        letter = "B",
+                        isFirst = false
+                    )
+                )
+            }
+            item {
+                ComponentKeyItem(
+                    item = ComponentKeyData.Item(
+                        id = 1,
+                        serviceName = "Baschirotto",
+                        isFirst = true,
+                        isLast = true
+                    ),
+                    onClick = {}
+                )
             }
         }
         ComponentNewKeyFab(
