@@ -1,131 +1,59 @@
 package com.github.xnovo3000.gigapass.feature.keychain.ui
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import android.content.res.Configuration
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.feature.keychain.viewmodel.KeychainViewModel
 
-@ExperimentalMaterial3ExpressiveApi
 @ExperimentalMaterial3Api
 @Composable
-fun KeychainRoute(viewModel: KeychainViewModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surfaceContainer)
-            .statusBarsPadding()
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(
-                bottom = 112.dp + WindowInsets.navigationBars.getBottom(LocalDensity.current).dp,
+fun KeychainRoute(
+    viewModel: KeychainViewModel,
+    onGoToNewKeyPageClick: () -> Unit
+) {
+    val lazyColumnState = rememberLazyListState()
+    Scaffold(
+        topBar = {
+
+        },
+        floatingActionButton = {
+            val expanded by remember {
+                derivedStateOf { !lazyColumnState.isScrollInProgress }
+            }
+            KeychainNewKeyFab(
+                expanded = expanded,
+                onClick = onGoToNewKeyPageClick
             )
-        ) {
-            item(key = -10001) {
-                ComponentTitle()
-            }
-            stickyHeader(key = -10000) {
-                ComponentSearch()
-            }
-            item {
-                ComponentKeyHeader(
-                    header = ComponentKeyData.Header(
-                        letter = "A",
-                        isFirst = true
-                    )
-                )
-            }
-            item {
-                ComponentKeyItem(
-                    item = ComponentKeyData.Item(
-                        id = 1,
-                        serviceName = "Amazon",
-                        isFirst = true,
-                        isLast = false
-                    ),
-                    onClick = {}
-                )
-            }
-            item {
-                ComponentKeyItem(
-                    item = ComponentKeyData.Item(
-                        id = 1,
-                        serviceName = "Amazon",
-                        isFirst = false,
-                        isLast = false
-                    ),
-                    onClick = {}
-                )
-            }
-            item {
-                ComponentKeyItem(
-                    item = ComponentKeyData.Item(
-                        id = 1,
-                        serviceName = "Amazon",
-                        isFirst = false,
-                        isLast = true
-                    ),
-                    onClick = {}
-                )
-            }
-            item {
-                ComponentKeyHeader(
-                    header = ComponentKeyData.Header(
-                        letter = "B",
-                        isFirst = false
-                    )
-                )
-            }
-            item {
-                ComponentKeyItem(
-                    item = ComponentKeyData.Item(
-                        id = 1,
-                        serviceName = "Baschirotto",
-                        isFirst = true,
-                        isLast = true
-                    ),
-                    onClick = {}
-                )
-            }
         }
-        ComponentNewKeyFab(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-                .navigationBarsPadding(),
-            onClick = {}
+    ) { innerPadding ->
+        KeychainContent(
+            state = lazyColumnState,
+            contentPadding = innerPadding,
+            items = emptyList(),
+            onItemClick = {}
         )
     }
 }
 
 @SuppressLint("ViewModelConstructorInComposable")
-@ExperimentalMaterial3ExpressiveApi
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @ExperimentalMaterial3Api
-@Preview
 @Composable
 private fun Preview() {
     GigaPassTheme {
         KeychainRoute(
-            viewModel = KeychainViewModel()
+            viewModel = KeychainViewModel(),
+            onGoToNewKeyPageClick = {}
         )
     }
 }
