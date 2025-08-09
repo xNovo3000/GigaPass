@@ -28,10 +28,7 @@ fun ComponentTitle(modifier: Modifier = Modifier) {
         Text(
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(
-                    start = 24.dp,
-                    bottom = 8.dp
-                ),
+                .padding(start = 24.dp, bottom = 12.dp),
             text = stringResource(R.string.keychain_title),
             style = MaterialTheme.typography.displaySmall,
             overflow = TextOverflow.Ellipsis,
