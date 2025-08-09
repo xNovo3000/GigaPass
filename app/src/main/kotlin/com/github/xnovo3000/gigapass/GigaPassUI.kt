@@ -12,7 +12,7 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.github.xnovo3000.gigapass.core.ui.GigaPassSurface
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
-import com.github.xnovo3000.gigapass.feature.keychain.KeychainRoute
+import com.github.xnovo3000.gigapass.feature.keychain.ui.KeychainRoute
 import kotlinx.serialization.Serializable
 
 sealed class GigaPassRoute : NavKey {

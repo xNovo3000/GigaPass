@@ -1,4 +1,4 @@
-package com.github.xnovo3000.gigapass.feature.keychain
+package com.github.xnovo3000.gigapass.feature.keychain.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -59,6 +59,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     // Jetpack Compose - Material 3 Expressive
     implementation(libs.compose.material3)
+    implementation(libs.compose.material.icons)
     // Lifecycle
     implementation(libs.lifecycle.viewmodel)
 }
