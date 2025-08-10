@@ -13,6 +13,7 @@ import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.github.xnovo3000.gigapass.core.ui.GigaPassSurface
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.feature.keychain.ui.KeychainRoute
+import kotlinx.coroutines.FlowPreview
 import kotlinx.serialization.Serializable
 
 sealed class GigaPassRoute : NavKey {
@@ -37,7 +38,8 @@ fun GigaPassUI() {
                     entry<GigaPassRoute.Keychain> {
                         KeychainRoute(
                             viewModel = hiltViewModel(),
-                            onGoToNewKeyPageClick = {}
+                            onGoToNewKeyPageClick = {},
+                            onGoToKeyPageClick = {}
                         )
                     }
                     entry<GigaPassRoute.Key> {}

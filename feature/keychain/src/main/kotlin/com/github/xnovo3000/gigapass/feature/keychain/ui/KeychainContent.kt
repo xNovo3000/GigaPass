@@ -17,8 +17,8 @@ import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 @Composable
 fun KeychainContent(
     modifier: Modifier = Modifier,
-    state: LazyListState,
-    contentPadding: PaddingValues,
+    state: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     colors: ListItemColors = ListItemDefaults.colors(),
     items: List<KeyItemData>,
     onItemClick: (KeyItemData) -> Unit

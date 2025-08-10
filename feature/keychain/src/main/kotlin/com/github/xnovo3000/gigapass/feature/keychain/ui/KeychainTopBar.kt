@@ -13,7 +13,11 @@ import androidx.compose.material3.ExpandedFullScreenSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.SearchBarScrollBehavior
 import androidx.compose.material3.SearchBarState
 import androidx.compose.material3.SearchBarValue
 import androidx.compose.material3.Text
@@ -29,7 +33,7 @@ import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.feature.keychain.R
 import kotlinx.coroutines.launch
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeychainTopBarInputField(
     modifier: Modifier = Modifier,
@@ -86,7 +90,7 @@ fun KeychainTopBarInputField(
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun InputFieldPreview() {
     GigaPassTheme {
@@ -97,23 +101,25 @@ private fun InputFieldPreview() {
     }
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeychainTopBarSearchBar(
     modifier: Modifier = Modifier,
     searchBarState: SearchBarState,
-    inputField: @Composable () -> Unit
+    inputField: @Composable () -> Unit,
+    scrollBehavior: SearchBarScrollBehavior? = null
 ) {
     TopSearchBar(
         modifier = modifier,
         state = searchBarState,
-        inputField = inputField
+        inputField = inputField,
+        scrollBehavior = scrollBehavior
     )
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchBarPreview() {
     GigaPassTheme {
@@ -130,25 +136,31 @@ private fun SearchBarPreview() {
     }
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeychainTopBarSearchView(
     modifier: Modifier = Modifier,
     searchBarState: SearchBarState,
-    inputField: @Composable () -> Unit
+    inputField: @Composable () -> Unit,
+    items: List<KeyItemData>,
+    onItemClick: (KeyItemData) -> Unit
 ) {
     ExpandedFullScreenSearchBar(
         modifier = modifier,
         state = searchBarState,
         inputField = inputField
     ) {
-
+        KeychainContent(
+            colors = keyItemSearchColors(),
+            items = items,
+            onItemClick = onItemClick
+        )
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchViewPreview() {
     GigaPassTheme {
@@ -166,8 +178,16 @@ private fun SearchViewPreview() {
             )
             KeychainTopBarSearchView(
                 searchBarState = searchBarState,
-                inputField = inputField
+                inputField = inputField,
+                items = emptyList(),
+                onItemClick = {}
             )
         }
     }
 }
+
+@Composable
+fun keyItemSearchColors(): ListItemColors = ListItemDefaults.colors(
+    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+    headlineColor = MaterialTheme.colorScheme.onSurfaceVariant
+)
