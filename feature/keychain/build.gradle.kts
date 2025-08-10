@@ -57,7 +57,7 @@ dependencies {
     // Jetpack Compose - Preview
     implementation(libs.compose.ui.preview)
     debugImplementation(libs.compose.ui.tooling)
-    // Jetpack Compose - Material 3 Expressive
+    // Jetpack Compose - Material 3
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons)
     // Lifecycle

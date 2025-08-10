@@ -3,5 +3,5 @@
     <string name="keychain_new_key">New key</string>
     <string name="keychain_search_back">Back</string>
     <string name="keychain_search_clear">Clear</string>
-    <string name="keychain_search_hint">Search keys and password</string>
+    <string name="keychain_search_hint">Search keys and passwords</string>
 </resources>

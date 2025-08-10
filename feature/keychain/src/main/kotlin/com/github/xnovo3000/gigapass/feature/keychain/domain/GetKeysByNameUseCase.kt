@@ -6,7 +6,12 @@ import javax.inject.Inject
 class GetKeysByNameUseCase @Inject constructor() {
 
     suspend operator fun invoke(value: String): List<KeyItemData> {
-        return emptyList()
+        return List(100) {
+            KeyItemData(
+                id = it.toLong(),
+                name = "Amazon $it"
+            )
+        }
     }
 
 }

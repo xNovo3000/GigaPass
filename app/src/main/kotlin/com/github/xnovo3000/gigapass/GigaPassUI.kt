@@ -39,7 +39,7 @@ fun GigaPassUI() {
                         KeychainRoute(
                             viewModel = hiltViewModel(),
                             onGoToNewKeyPageClick = {},
-                            onGoToKeyPageClick = {}
+                            onGoToKeyPageClick = { backStack.add(GigaPassRoute.Key(it)) }
                         )
                     }
                     entry<GigaPassRoute.Key> {}

@@ -27,7 +27,6 @@ class KeychainViewModel @Inject constructor(
 
     val searchTextFieldState = TextFieldState()
     @OptIn(FlowPreview::class) val searchKeys = snapshotFlow { searchTextFieldState.text }
-        .filter { it.isNotEmpty() }
         .debounce(150.milliseconds)
         .map { getKeysByNameUseCase(it.toString()) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())

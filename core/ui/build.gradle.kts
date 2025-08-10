@@ -47,6 +47,6 @@ dependencies {
     implementation(libs.compose.foundation)
     implementation(libs.compose.runtime)
     implementation(libs.compose.ui)
-    // Jetpack Compose - Material 3 Expressive
+    // Jetpack Compose - Material 3
     implementation(libs.compose.material3)
 }
