@@ -115,6 +115,7 @@ fun KeychainTopBarSearchBar(
         inputField = inputField,
         scrollBehavior = scrollBehavior
     )
+    StatusBarProtection()
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
