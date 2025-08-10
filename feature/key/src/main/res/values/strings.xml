@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_headline_credentials">Credentials</string>
+    <string name="key_headline_notes">Notes</string>
+    <string name="key_headline_website_application">Website/Application</string>
+    <string name="key_toolbar_apply">Apply</string>
+    <string name="key_toolbar_cancel">Cancel</string>
+    <string name="key_toolbar_delete">Delete</string>
+    <string name="key_toolbar_edit">Edit</string>
+    <string name="key_toolbar_share">Share</string>
+    <string name="key_top_back">Back</string>
+</resources>
