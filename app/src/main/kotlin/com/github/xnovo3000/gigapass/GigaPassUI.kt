@@ -35,7 +35,10 @@ fun GigaPassUI() {
                 ),
                 entryProvider = entryProvider {
                     entry<GigaPassRoute.Keychain> {
-                        KeychainRoute(viewModel = hiltViewModel())
+                        KeychainRoute(
+                            viewModel = hiltViewModel(),
+                            onGoToNewKeyPageClick = {}
+                        )
                     }
                     entry<GigaPassRoute.Key> {}
                 }

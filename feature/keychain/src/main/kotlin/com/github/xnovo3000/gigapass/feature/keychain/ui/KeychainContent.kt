@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +19,7 @@ fun KeychainContent(
     modifier: Modifier = Modifier,
     state: LazyListState,
     contentPadding: PaddingValues,
+    colors: ListItemColors = ListItemDefaults.colors(),
     items: List<KeyItemData>,
     onItemClick: (KeyItemData) -> Unit
 ) {
@@ -30,6 +33,7 @@ fun KeychainContent(
             key = { it.id }
         ) { keyItemData ->
             KeyItem(
+                colors = colors,
                 data = keyItemData,
                 onClick = { onItemClick(keyItemData) }
             )

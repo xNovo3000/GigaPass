@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ data class KeyItemData(
 @Composable
 fun KeyItem(
     modifier: Modifier = Modifier,
+    colors: ListItemColors = ListItemDefaults.colors(),
     data: KeyItemData,
     onClick: () -> Unit
 ) {
@@ -53,7 +56,8 @@ fun KeyItem(
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
-        }
+        },
+        colors = colors
     )
 }
 
