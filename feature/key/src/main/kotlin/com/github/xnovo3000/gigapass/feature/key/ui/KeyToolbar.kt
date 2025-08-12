@@ -23,54 +23,10 @@ import com.github.xnovo3000.gigapass.feature.key.R
 @Composable
 fun KeyToolbarViewMode(
     modifier: Modifier = Modifier,
+    isEditing: Boolean,
     onShareClick: () -> Unit,
     onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
-) {
-    HorizontalFloatingToolbar(
-        modifier = modifier,
-        expanded = true,
-        colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors()
-    ) {
-        IconButton(onClick = onShareClick) {
-            Icon(
-                imageVector = Icons.Rounded.Share,
-                contentDescription = stringResource(R.string.key_toolbar_share)
-            )
-        }
-        IconButton(onClick = onEditClick) {
-            Icon(
-                imageVector = Icons.Rounded.Edit,
-                contentDescription = stringResource(R.string.key_toolbar_edit)
-            )
-        }
-        IconButton(onClick = onDeleteClick) {
-            Icon(
-                imageVector = Icons.Rounded.Delete,
-                contentDescription = stringResource(R.string.key_toolbar_delete)
-            )
-        }
-    }
-}
-
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-private fun ViewModePreview() {
-    GigaPassTheme {
-        KeyToolbarViewMode(
-            onShareClick = {},
-            onEditClick = {},
-            onDeleteClick = {}
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun KeyToolbarEditMode(
-    modifier: Modifier = Modifier,
+    onDeleteClick: () -> Unit,
     onCancelClick: () -> Unit,
     onApplyClick: () -> Unit
 ) {
@@ -79,28 +35,68 @@ fun KeyToolbarEditMode(
         expanded = true,
         colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors()
     ) {
-        IconButton(onClick = onCancelClick) {
-            Icon(
-                imageVector = Icons.Rounded.Close,
-                contentDescription = stringResource(R.string.key_toolbar_cancel)
-            )
-        }
-        IconButton(onClick = onApplyClick) {
-            Icon(
-                imageVector = Icons.Rounded.Check,
-                contentDescription = stringResource(R.string.key_toolbar_apply)
-            )
+        if (isEditing) {
+            IconButton(onClick = onCancelClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Close,
+                    contentDescription = stringResource(R.string.key_toolbar_cancel)
+                )
+            }
+            IconButton(onClick = onApplyClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Check,
+                    contentDescription = stringResource(R.string.key_toolbar_apply)
+                )
+            }
+        } else {
+            IconButton(onClick = onShareClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Share,
+                    contentDescription = stringResource(R.string.key_toolbar_share)
+                )
+            }
+            IconButton(onClick = onEditClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Edit,
+                    contentDescription = stringResource(R.string.key_toolbar_edit)
+                )
+            }
+            IconButton(onClick = onDeleteClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Delete,
+                    contentDescription = stringResource(R.string.key_toolbar_delete)
+                )
+            }
         }
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun ViewModePreview() {
+    GigaPassTheme {
+        KeyToolbarViewMode(
+            isEditing = false,
+            onShareClick = {},
+            onEditClick = {},
+            onDeleteClick = {},
+            onCancelClick = {},
+            onApplyClick = {}
+        )
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun EditModePreview() {
     GigaPassTheme {
-        KeyToolbarEditMode(
+        KeyToolbarViewMode(
+            isEditing = true,
+            onShareClick = {},
+            onEditClick = {},
+            onDeleteClick = {},
             onCancelClick = {},
             onApplyClick = {}
         )

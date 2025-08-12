@@ -9,8 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LargeFlexibleTopAppBar
-import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -24,13 +23,12 @@ import com.github.xnovo3000.gigapass.feature.key.R
 @Composable
 fun KeyTopBar(
     modifier: Modifier = Modifier,
-    name: String,
     onBackClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
-    LargeFlexibleTopAppBar(
+    TopAppBar(
         modifier = modifier,
-        title = { Text(text = name) },
+        title = {},
         navigationIcon = {
             FilledTonalIconButton(
                 modifier = Modifier.minimumInteractiveComponentSize()
@@ -54,12 +52,11 @@ fun KeyTopBar(
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ViewModePreview() {
     GigaPassTheme {
         KeyTopBar(
-            name = "Amazon",
             onBackClick = {}
         )
     }

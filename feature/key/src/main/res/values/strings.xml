@@ -3,6 +3,8 @@
     <string name="key_headline_credentials">Credentials</string>
     <string name="key_headline_notes">Notes</string>
     <string name="key_headline_website_application">Website/Application</string>
+    <string name="key_item_password_show">Show password</string>
+    <string name="key_item_password_copy">Copy password</string>
     <string name="key_toolbar_apply">Apply</string>
     <string name="key_toolbar_cancel">Cancel</string>
     <string name="key_toolbar_delete">Delete</string>

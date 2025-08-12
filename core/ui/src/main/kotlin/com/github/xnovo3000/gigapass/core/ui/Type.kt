@@ -20,6 +20,10 @@ private val displayFontFamily = FontFamily(
     Font(resId = R.font.pt_serif_medium_italic, weight = FontWeight.Medium, style = FontStyle.Italic)
 )
 
+val credentialsFontFamily = FontFamily(
+    Font(resId = R.font.google_sans_code_regular)
+)
+
 private val baseline = Typography()
 
 val gigaPassTypography = Typography(

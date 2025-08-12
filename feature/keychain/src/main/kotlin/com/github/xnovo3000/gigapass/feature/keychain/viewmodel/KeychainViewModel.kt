@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @HiltViewModel
 class KeychainViewModel @Inject constructor(
     listenKeysUseCase: ListenKeysUseCase,
-    private val getKeysByNameUseCase: GetKeysByNameUseCase
+    getKeysByNameUseCase: GetKeysByNameUseCase
 ) : ViewModel() {
 
     val keys = listenKeysUseCase()

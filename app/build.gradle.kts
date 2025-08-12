@@ -46,6 +46,7 @@ android {
 
 dependencies {
     // Project
+    api(project(":feature:key"))
     api(project(":feature:keychain"))
     // AndroidX
     implementation(libs.androidx.core)

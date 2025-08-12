@@ -41,6 +41,7 @@ android {
 
 dependencies {
     // Project
+    api(project(":core:crypto"))
     api(project(":core:ui"))
     api(project(":data:keychain"))
     // AndroidX
