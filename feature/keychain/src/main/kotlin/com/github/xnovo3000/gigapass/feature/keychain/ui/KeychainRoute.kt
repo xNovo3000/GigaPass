@@ -9,20 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.xnovo3000.gigapass.feature.keychain.viewmodel.KeychainViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeychainRoute(
     viewModel: KeychainViewModel,
-    onGoToNewKeyPageClick: () -> Unit,
     onGoToKeyPageClick: (Long) -> Unit
 ) {
     val lazyColumnState = rememberLazyListState()
     val scrollBehavior = SearchBarDefaults.enterAlwaysSearchBarScrollBehavior()
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -52,7 +54,9 @@ fun KeychainRoute(
             }
             KeychainNewKeyFab(
                 expanded = expanded,
-                onClick = onGoToNewKeyPageClick
+                onClick = {
+                    coroutineScope.launch { onGoToKeyPageClick(viewModel.createNew()) }
+                }
             )
         }
     ) { innerPadding ->

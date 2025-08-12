@@ -40,7 +40,6 @@ fun GigaPassUI() {
                     entry<GigaPassRoute.Keychain> {
                         KeychainRoute(
                             viewModel = hiltViewModel(),
-                            onGoToNewKeyPageClick = {},
                             onGoToKeyPageClick = { backStack.add(GigaPassRoute.Key(it)) }
                         )
                     }
@@ -50,7 +49,8 @@ fun GigaPassUI() {
                                 creationCallback = { viewModelFactory ->
                                     viewModelFactory.create(key.id)
                                 }
-                            )
+                            ),
+                            onBackClick = { backStack.removeLastOrNull() }
                         )
                     }
                 }

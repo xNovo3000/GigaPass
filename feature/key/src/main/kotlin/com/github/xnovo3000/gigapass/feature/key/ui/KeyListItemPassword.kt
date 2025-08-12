@@ -70,7 +70,7 @@ fun KeyListItemPassword(
         var showPasswordRequested by remember { mutableStateOf(false) }
         BasicSecureTextField(
             modifier = Modifier.weight(1F),
-            readOnly = !isEditing,
+            enabled = isEditing,
             state = state,
             textStyle = MaterialTheme.typography.bodyLarge.copy(
                 color = MaterialTheme.colorScheme.onSurface,

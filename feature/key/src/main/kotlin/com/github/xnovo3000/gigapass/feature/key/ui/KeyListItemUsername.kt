@@ -63,6 +63,7 @@ fun KeyListItemUsername(
         BasicTextField(
             modifier = Modifier.weight(1F),
             state = state,
+            enabled = isEditing,
             textStyle = MaterialTheme.typography.bodyLarge.copy(
                 color = MaterialTheme.colorScheme.onSurface,
                 fontFamily = credentialsFontFamily

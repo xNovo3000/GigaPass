@@ -4,6 +4,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.xnovo3000.gigapass.feature.keychain.domain.CreateKeyUseCase
 import com.github.xnovo3000.gigapass.feature.keychain.domain.GetKeysByNameUseCase
 import com.github.xnovo3000.gigapass.feature.keychain.domain.ListenKeysUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import kotlin.time.Duration.Companion.milliseconds
 @HiltViewModel
 class KeychainViewModel @Inject constructor(
     listenKeysUseCase: ListenKeysUseCase,
-    getKeysByNameUseCase: GetKeysByNameUseCase
+    getKeysByNameUseCase: GetKeysByNameUseCase,
+    private val createKeyUseCase: CreateKeyUseCase
 ) : ViewModel() {
 
     val keys = listenKeysUseCase()
@@ -30,5 +32,7 @@ class KeychainViewModel @Inject constructor(
         .debounce(150.milliseconds)
         .map { getKeysByNameUseCase(it.toString()) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    suspend fun createNew(): Long = createKeyUseCase().id
 
 }

@@ -21,7 +21,7 @@ import com.github.xnovo3000.gigapass.feature.key.R
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun KeyToolbarViewMode(
+fun KeyToolbar(
     modifier: Modifier = Modifier,
     isEditing: Boolean,
     onShareClick: () -> Unit,
@@ -76,7 +76,7 @@ fun KeyToolbarViewMode(
 @Composable
 private fun ViewModePreview() {
     GigaPassTheme {
-        KeyToolbarViewMode(
+        KeyToolbar(
             isEditing = false,
             onShareClick = {},
             onEditClick = {},
@@ -92,7 +92,7 @@ private fun ViewModePreview() {
 @Composable
 private fun EditModePreview() {
     GigaPassTheme {
-        KeyToolbarViewMode(
+        KeyToolbar(
             isEditing = true,
             onShareClick = {},
             onEditClick = {},

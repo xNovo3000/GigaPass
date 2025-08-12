@@ -49,7 +49,7 @@ fun KeyListItemService(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "A",
+                text = state.text.firstOrNull()?.uppercase() ?: "",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
@@ -57,7 +57,7 @@ fun KeyListItemService(
         BasicTextField(
             modifier = Modifier.weight(1F),
             state = state,
-            readOnly = !isEditing,
+            enabled = isEditing,
             textStyle = MaterialTheme.typography.bodyLarge.copy(
                 color = MaterialTheme.colorScheme.onSurface
             ),
