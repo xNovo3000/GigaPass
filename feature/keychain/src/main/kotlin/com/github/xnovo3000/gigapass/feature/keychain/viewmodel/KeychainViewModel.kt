@@ -33,6 +33,6 @@ class KeychainViewModel @Inject constructor(
         .map { getKeysByNameUseCase(it.toString()) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    suspend fun createNew(): Long = createKeyUseCase().id
+    suspend fun createNew(): Long = createKeyUseCase()
 
 }

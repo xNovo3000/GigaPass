@@ -21,7 +21,7 @@ interface KeyRepository {
     suspend fun getById(id: Long): KeyEntity?
 
     @Insert
-    suspend fun insert(key: KeyEntity)
+    suspend fun insert(key: KeyEntity): Long
 
     @Update
     suspend fun update(key: KeyEntity)

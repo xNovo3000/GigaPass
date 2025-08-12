@@ -12,10 +12,12 @@ import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.feature.key.R
 
@@ -33,7 +35,8 @@ fun KeyToolbar(
     HorizontalFloatingToolbar(
         modifier = modifier,
         expanded = true,
-        colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors()
+        colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors(),
+        expandedShadowElevation = 6.dp
     ) {
         if (isEditing) {
             IconButton(onClick = onCancelClick) {
@@ -76,14 +79,16 @@ fun KeyToolbar(
 @Composable
 private fun ViewModePreview() {
     GigaPassTheme {
-        KeyToolbar(
-            isEditing = false,
-            onShareClick = {},
-            onEditClick = {},
-            onDeleteClick = {},
-            onCancelClick = {},
-            onApplyClick = {}
-        )
+        Surface {
+            KeyToolbar(
+                isEditing = false,
+                onShareClick = {},
+                onEditClick = {},
+                onDeleteClick = {},
+                onCancelClick = {},
+                onApplyClick = {}
+            )
+        }
     }
 }
 
@@ -92,13 +97,15 @@ private fun ViewModePreview() {
 @Composable
 private fun EditModePreview() {
     GigaPassTheme {
-        KeyToolbar(
-            isEditing = true,
-            onShareClick = {},
-            onEditClick = {},
-            onDeleteClick = {},
-            onCancelClick = {},
-            onApplyClick = {}
-        )
+        Surface {
+            KeyToolbar(
+                isEditing = true,
+                onShareClick = {},
+                onEditClick = {},
+                onDeleteClick = {},
+                onCancelClick = {},
+                onApplyClick = {}
+            )
+        }
     }
 }

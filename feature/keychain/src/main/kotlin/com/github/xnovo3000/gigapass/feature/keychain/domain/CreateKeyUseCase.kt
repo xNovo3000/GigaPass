@@ -8,15 +8,15 @@ class CreateKeyUseCase @Inject constructor(
     private val keyRepository: KeyRepository
 ) {
 
-    suspend operator fun invoke(): KeyEntity {
-        val newKeyEntity = KeyEntity(
-            id = 0,
-            serviceName = "",
-            username = "",
-            encryptedPassword = ""
+    suspend operator fun invoke(): Long {
+        return keyRepository.insert(
+            key = KeyEntity(
+                id = 0,
+                serviceName = "",
+                username = "",
+                encryptedPassword = ""
+            )
         )
-        keyRepository.insert(newKeyEntity)
-        return newKeyEntity
     }
 
 }

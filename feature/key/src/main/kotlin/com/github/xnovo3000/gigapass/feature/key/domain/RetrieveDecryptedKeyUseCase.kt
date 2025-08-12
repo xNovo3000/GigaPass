@@ -27,15 +27,14 @@ class RetrieveDecryptedKeyUseCase @Inject constructor(
         // Try to decrypt the password
         val decryptedPasswordResult = cryptoManager.decrypt(keyEntity.encryptedPassword)
         if (decryptedPasswordResult.isFailure) {
-            Log.e(TAG, "Failed to decrypt password", decryptedPasswordResult.exceptionOrNull())
-            return@withContext null
+            Log.w(TAG, "Failed to decrypt password", decryptedPasswordResult.exceptionOrNull())
         }
         // Build the DTO
         DecryptedKeyDto(
             id = keyEntity.id,
             serviceName = keyEntity.serviceName,
             username = keyEntity.username,
-            password = decryptedPasswordResult.getOrThrow()  // Will never throw
+            password = decryptedPasswordResult.getOrDefault("")
         )
     }
 
