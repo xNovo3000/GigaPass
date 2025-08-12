@@ -1,5 +1,6 @@
 package com.github.xnovo3000.gigapass.feature.key.ui
 
+import android.content.ClipData
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,17 +28,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.core.ui.credentialsFontFamily
 import com.github.xnovo3000.gigapass.feature.key.R
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -50,7 +55,6 @@ fun KeyListItemPassword(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
-            .padding(top = 1.dp)
             .clip(
                 shape = RoundedCornerShape(
                     topStart = 4.dp, topEnd = 4.dp,
@@ -88,9 +92,16 @@ fun KeyListItemPassword(
                     )
                 )
             if (showPasswordRequested) {
+                val coroutineScope = rememberCoroutineScope()
+                val clipboard = LocalClipboard.current
                 FilledTonalIconButton(
                     modifier = iconButtonModifier,
-                    onClick = { /* TODO: Copy password */ }
+                    onClick = {
+                        coroutineScope.launch {
+                            val clipData = ClipData.newPlainText("password", state.text)
+                            clipboard.setClipEntry(clipData.toClipEntry())
+                        }
+                    }
                 ) {
                     Icon(
                         modifier = Modifier.size(IconButtonDefaults.extraSmallIconSize),

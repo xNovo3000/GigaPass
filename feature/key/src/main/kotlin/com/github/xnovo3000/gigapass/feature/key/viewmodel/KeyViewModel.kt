@@ -19,7 +19,7 @@ class KeyViewModel @AssistedInject constructor(
     private val updateKeyUseCase: UpdateKeyUseCase
 ) : ViewModel() {
 
-    val websiteApplicationTextFieldState = TextFieldState()
+    val serviceNameTextFieldState = TextFieldState()
     val usernameTextFieldState = TextFieldState()
     val passwordTextFieldState = TextFieldState()
 
@@ -28,7 +28,7 @@ class KeyViewModel @AssistedInject constructor(
     fun loadDefaults() {
         viewModelScope.launch {
             retrieveDecryptedKeyUseCase(id = keyId)?.let {
-                websiteApplicationTextFieldState.setTextAndPlaceCursorAtEnd(it.serviceName)
+                serviceNameTextFieldState.setTextAndPlaceCursorAtEnd(it.serviceName)
                 usernameTextFieldState.setTextAndPlaceCursorAtEnd(it.username)
                 passwordTextFieldState.setTextAndPlaceCursorAtEnd(it.password)
             }
@@ -40,7 +40,7 @@ class KeyViewModel @AssistedInject constructor(
             updateKeyUseCase(
                 decryptedKeyDto = DecryptedKeyDto(
                     id = keyId,
-                    serviceName = websiteApplicationTextFieldState.text.toString(),
+                    serviceName = serviceNameTextFieldState.text.toString(),
                     username = usernameTextFieldState.text.toString(),
                     password = passwordTextFieldState.text.toString()
                 )

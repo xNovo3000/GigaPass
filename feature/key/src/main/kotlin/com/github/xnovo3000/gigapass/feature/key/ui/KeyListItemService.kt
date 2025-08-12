@@ -24,10 +24,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
-import com.github.xnovo3000.gigapass.core.ui.credentialsFontFamily
 
 @Composable
-fun KeyListItemWebsiteApplication(
+fun KeyListItemService(
     modifier: Modifier = Modifier,
     isEditing: Boolean,
     state: TextFieldState
@@ -73,7 +72,7 @@ fun KeyListItemWebsiteApplication(
 private fun CredentialsPreview() {
     GigaPassTheme {
         Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
-            KeyListItemWebsiteApplication(
+            KeyListItemService(
                 isEditing = false,
                 state = rememberTextFieldState("Amazon")
             )
@@ -87,7 +86,7 @@ private fun CredentialsPreview() {
 private fun CredentialsEditModePreview() {
     GigaPassTheme {
         Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
-            KeyListItemWebsiteApplication(
+            KeyListItemService(
                 isEditing = true,
                 state = rememberTextFieldState("Amazon")
             )
