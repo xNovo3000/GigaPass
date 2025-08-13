@@ -241,7 +241,7 @@ fun GigaPassTheme(
 ) {
     MaterialTheme(
         colorScheme = if (!darkTheme) lightScheme else darkScheme,
-        typography = gigaPassTypography,
+        typography = GigaPassTypography,
         content = content
     )
 }

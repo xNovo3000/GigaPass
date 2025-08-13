@@ -2,6 +2,7 @@ package com.github.xnovo3000.gigapass
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
@@ -12,6 +13,8 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.github.xnovo3000.gigapass.core.ui.GigaPassSurface
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
+import com.github.xnovo3000.gigapass.core.ui.GigaPassPopTransitionSpec
+import com.github.xnovo3000.gigapass.core.ui.GigaPassTransitionSpec
 import com.github.xnovo3000.gigapass.feature.key.ui.KeyRoute
 import com.github.xnovo3000.gigapass.feature.key.viewmodel.KeyViewModel
 import com.github.xnovo3000.gigapass.feature.key.viewmodel.KeyViewModelFactory
@@ -50,10 +53,12 @@ fun GigaPassUI() {
                                     viewModelFactory.create(key.id)
                                 }
                             ),
-                            onBackClick = { backStack.removeLastOrNull() }
+                            onBackClick = dropUnlessResumed { backStack.removeLastOrNull() }
                         )
                     }
-                }
+                },
+                transitionSpec = GigaPassTransitionSpec,
+                popTransitionSpec = GigaPassPopTransitionSpec
             )
         }
     }

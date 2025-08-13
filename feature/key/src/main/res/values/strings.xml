@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="key_dialog_delete_title">Delete this key</string>
+    <string name="key_dialog_delete_text">If you delete this key, it cannot be recovered. Confirm deletion?</string>
+    <string name="key_dialog_delete_action_cancel">Cancel</string>
+    <string name="key_dialog_delete_action_delete">Delete</string>
     <string name="key_headline_credentials">Credentials</string>
     <string name="key_headline_notes">Notes</string>
     <string name="key_headline_website_application">Website/Application</string>

@@ -35,7 +35,7 @@ fun KeyList(
             .background(color = MaterialTheme.colorScheme.surfaceContainer)
             .verticalScroll(state = rememberScrollState())
     ) {
-        Spacer(modifier = Modifier.padding(innerPadding))
+        Spacer(modifier = Modifier.padding(top = innerPadding.calculateTopPadding()))
         KeyListHeadlineWebsiteApplication(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 8.dp)
@@ -61,6 +61,7 @@ fun KeyList(
             isEditing = isEditing,
             state = passwordTextFieldState
         )
+        Spacer(modifier = Modifier.padding(top = innerPadding.calculateBottomPadding()))
     }
 }
 

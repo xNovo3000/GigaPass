@@ -24,7 +24,6 @@ fun KeychainRoute(
 ) {
     val lazyColumnState = rememberLazyListState()
     val scrollBehavior = SearchBarDefaults.enterAlwaysSearchBarScrollBehavior()
-    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -49,6 +48,7 @@ fun KeychainRoute(
             )
         },
         floatingActionButton = {
+            val coroutineScope = rememberCoroutineScope()
             val expanded by remember {
                 derivedStateOf { lazyColumnState.firstVisibleItemIndex == 0 }
             }

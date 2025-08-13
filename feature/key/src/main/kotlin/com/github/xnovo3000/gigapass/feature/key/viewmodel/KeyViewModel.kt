@@ -4,6 +4,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.xnovo3000.gigapass.feature.key.domain.DeleteCurrentKeyUseCase
 import com.github.xnovo3000.gigapass.feature.key.domain.RetrieveDecryptedKeyUseCase
 import com.github.xnovo3000.gigapass.feature.key.domain.UpdateKeyUseCase
 import com.github.xnovo3000.gigapass.feature.key.dto.DecryptedKeyDto
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 class KeyViewModel @AssistedInject constructor(
     @Assisted private val keyId: Long,
     private val retrieveDecryptedKeyUseCase: RetrieveDecryptedKeyUseCase,
-    private val updateKeyUseCase: UpdateKeyUseCase
+    private val updateKeyUseCase: UpdateKeyUseCase,
+    private val deleteCurrentKeyUseCase: DeleteCurrentKeyUseCase
 ) : ViewModel() {
 
     val serviceNameTextFieldState = TextFieldState()
@@ -47,5 +49,7 @@ class KeyViewModel @AssistedInject constructor(
             )
         }
     }
+
+    suspend fun delete() = deleteCurrentKeyUseCase(id = keyId)
 
 }

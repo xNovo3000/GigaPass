@@ -26,7 +26,7 @@ val credentialsFontFamily = FontFamily(
 
 private val baseline = Typography()
 
-val gigaPassTypography = Typography(
+val GigaPassTypography = Typography(
     displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
     displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
     displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),

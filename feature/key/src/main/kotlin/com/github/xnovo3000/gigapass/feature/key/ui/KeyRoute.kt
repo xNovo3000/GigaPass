@@ -7,8 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import com.github.xnovo3000.gigapass.feature.key.viewmodel.KeyViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -17,6 +19,7 @@ fun KeyRoute(
     onBackClick: () -> Unit
 ) {
     var isEditing by remember { mutableStateOf(false) }
+    var isDeleting by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             KeyTopBar(onBackClick = onBackClick)
@@ -26,7 +29,7 @@ fun KeyRoute(
                 isEditing = isEditing,
                 onShareClick = { /* TODO: Share as text */ },
                 onEditClick = { isEditing = true },
-                onDeleteClick = { /* TODO: Delete current key */ },
+                onDeleteClick = { isDeleting = true },
                 onCancelClick = {
                     isEditing = false
                     viewModel.loadDefaults()
@@ -40,11 +43,26 @@ fun KeyRoute(
         floatingActionButtonPosition = FabPosition.Center
     ) { innerPadding ->
         KeyList(
-            innerPadding = innerPadding,
+            innerPadding = withToolbarPadding(innerPadding),
             isEditing = isEditing,
             serviceNameTextFieldState = viewModel.serviceNameTextFieldState,
             usernameTextFieldState = viewModel.usernameTextFieldState,
             passwordTextFieldState = viewModel.passwordTextFieldState
+        )
+    }
+    if (isDeleting) {
+        val coroutineScope = rememberCoroutineScope()
+        KeyDeleteDialog(
+            onDismissRequest = {
+                isDeleting = false
+            },
+            onConfirmRequest = {
+                isDeleting = false
+                coroutineScope.launch {
+                    viewModel.delete()
+                    onBackClick()
+                }
+            }
         )
     }
 }
