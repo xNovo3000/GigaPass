@@ -14,6 +14,7 @@ import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.github.xnovo3000.gigapass.core.ui.GigaPassSurface
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTheme
 import com.github.xnovo3000.gigapass.core.ui.GigaPassPopTransitionSpec
+import com.github.xnovo3000.gigapass.core.ui.GigaPassPredictivePopTransitionSpec
 import com.github.xnovo3000.gigapass.core.ui.GigaPassTransitionSpec
 import com.github.xnovo3000.gigapass.feature.key.ui.KeyRoute
 import com.github.xnovo3000.gigapass.feature.key.viewmodel.KeyViewModel
@@ -58,7 +59,8 @@ fun GigaPassUI() {
                     }
                 },
                 transitionSpec = GigaPassTransitionSpec,
-                popTransitionSpec = GigaPassPopTransitionSpec
+                popTransitionSpec = GigaPassPopTransitionSpec,
+                predictivePopTransitionSpec = GigaPassPredictivePopTransitionSpec
             )
         }
     }
